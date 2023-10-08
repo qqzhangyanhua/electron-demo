@@ -1,0 +1,24 @@
+[
+  {
+    "id": "VluVXl2i",
+    "prefix": "zzzCopy",
+    "description": "",
+    "scopes": [],
+    "variable": [],
+    "autoImport": "import i from 'a'",
+    "template": "<%- BASENAME %><%- FILEPATH %><%- DIRNAME %><%- EXT %>",
+    "mtime": 1696472585281,
+    "relativePath": "",
+    "pkg": "",
+    "transformRelativePath": false
+  },
+  {
+    "transformRelativePath": false,
+    "prefix": "zzz",
+    "template": "<%- BASENAME %><%- DIRNAME %>",
+    "mtime": 1696472688285,
+    "relativePath": "",
+    "pkg": "",
+    "id": "kvODQ14i"
+  }
+]

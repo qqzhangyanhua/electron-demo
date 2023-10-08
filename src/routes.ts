@@ -10,6 +10,7 @@ const routes = [
     { path: '/today-list', component: ()=>import('./views/today-todo/index.vue') ,name:'TodayTodo'},
     { path: '/personal-center', component: ()=>import('./views/personal-center/index.vue') ,name:'PersonalCenter'},
     { path: '/script-exe', component: ()=>import('./views/script-exe/index.vue') ,name:'ScriptExe'},
+    { path: '/add-project', component: ()=>import('./views/add-project/index.vue') ,name:'AddProject'},
 
 
   ]

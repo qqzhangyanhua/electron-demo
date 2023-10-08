@@ -1,15 +1,7 @@
 [
   {
-    "filePath": "/Users/zhangyanhua/Desktop/workcode/auth-mobile",
-    "fileName": "auth-mobile"
-  },
-  {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/demo3",
     "fileName": "demo3"
-  },
-  {
-    "filePath": "/Users/zhangyanhua/Desktop/workcode/dip-utils-master",
-    "fileName": "dip-utils-master"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/my-cli",
@@ -21,71 +13,105 @@
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_app_authorize_manage",
-    "fileName": "product_app_authorize_manage"
+    "fileName": "product_app_authorize_manage",
+    "type":"auth",
+    "remark":"授权待办移动端"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_ai_hub",
-    "fileName": "product_front_ai_hub"
+    "fileName": "product_front_ai_hub",
+    "type":"other",
+    "remark":"AI中枢"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_citycode_manager",
-    "fileName": "product_front_citycode_manager"
+    "fileName": "product_front_citycode_manager",
+    "type":"other",
+    "remark":"城市码"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_h5_authrole",
-    "fileName": "product_front_h5_authrole"
+    "fileName": "product_front_h5_authrole",
+    "type":"auth",
+    "remark":"角色授权"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_shell_platform",
-    "fileName": "product_front_shell_platform"
+    "fileName": "product_front_shell_platform",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_task_monitor",
-    "fileName": "product_front_task_monitor"
+    "fileName": "product_front_task_monitor",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_theme_declare",
-    "fileName": "product_front_theme_declare"
+    "fileName": "product_front_theme_declare",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_unionauth",
-    "fileName": "product_front_unionauth"
+    "fileName": "product_front_unionauth",
+    "type":"auth",
+    "remark":"授权待办PC"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_app_area_space",
-    "fileName": "project_app_area_space"
+    "fileName": "project_app_area_space",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_app_h5_area",
-    "fileName": "project_app_h5_area"
+    "fileName": "project_app_h5_area",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_app_qrcode_location",
-    "fileName": "project_app_qrcode_location"
+    "fileName": "project_app_qrcode_location",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_auth",
-    "fileName": "project_auth"
+    "fileName": "project_auth",
+    "type":"auth",
+    "remark":"授权待办其他"
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_front_area_space",
-    "fileName": "project_front_area_space"
+    "fileName": "project_front_area_space",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_front_location_ss",
-    "fileName": "project_front_location_ss"
+    "fileName": "project_front_location_ss",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_front_sh_shell",
-    "fileName": "project_front_sh_shell"
+    "fileName": "project_front_sh_shell",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_front_sh_ssmcontest",
-    "fileName": "project_front_sh_ssmcontest"
+    "fileName": "project_front_sh_ssmcontest",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/project_hlj_kb",
-    "fileName": "project_hlj_kb"
+    "fileName": "project_hlj_kb",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/rollup-help",
@@ -97,7 +123,9 @@
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/sh_shell",
-    "fileName": "sh_shell"
+    "fileName": "sh_shell",
+    "type":"other",
+    "remark":""
   },
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/text-demo2",
@@ -107,10 +135,7 @@
     "filePath": "/Users/zhangyanhua/Desktop/workcode/text-example",
     "fileName": "text-example"
   },
-  {
-    "filePath": "/Users/zhangyanhua/Desktop/workcode/tongban-auth",
-    "fileName": "tongban-auth"
-  },
+
   {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/ts-code",
     "fileName": "ts-code"

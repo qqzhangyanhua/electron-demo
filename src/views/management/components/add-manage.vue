@@ -11,10 +11,10 @@
     >
       <a-form-item
         label="禅道编号"
-        name="title"
+        name="id"
         :rules="[{ required: true, message: '请输入提醒标题' }]"
       >
-        <a-input v-model:value="formState.title" placeholder="请输入提醒标题" />
+        <a-input v-model:value="formState.id" placeholder="请输入提醒标题" />
       </a-form-item>
       <a-form-item
         label="需求描述与备注"
@@ -28,28 +28,28 @@
       </a-form-item>
       <a-form-item
         label="相关产品"
-        name="title"
-        :rules="[{ required: true, message: '请输入提醒标题' }]"
+        name="relatedProduct"
+        :rules="[{ required: true, message: '请输入相关产品' }]"
       >
-        <a-input v-model:value="formState.title" placeholder="请输入提醒标题" />
+        <a-input v-model:value="formState.relatedProduct" placeholder="请输入相关产品" />
       </a-form-item>
       <a-form-item
         label="jira地址"
         name="title"
       >
-        <a-input v-model:value="formState.title" placeholder="请输入提醒标题" />
+        <a-input v-model:value="formState.jiraUrl" placeholder="请输入jira地址" />
       </a-form-item>
       <a-form-item
         label="设计图地址"
         name="title"
       >
-        <a-input v-model:value="formState.title" placeholder="请输入提醒标题" />
+        <a-input v-model:value="formState.designUrl" placeholder="请输入设计图地址" />
       </a-form-item>
       <a-form-item
         label="接口文档地址"
         name="title"
       >
-        <a-input v-model:value="formState.title" placeholder="请输入提醒标题" />
+        <a-input v-model:value="formState.apiDocUrl" placeholder="请输入接口文档地址" />
       </a-form-item>
       <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
         <a-space>
@@ -62,9 +62,7 @@
 </template>
 <script lang="ts" setup>
 import { message } from "ant-design-vue";
-import { computed, reactive, ref } from "vue";
-import type { RadioGroupProps, SelectProps } from "ant-design-vue";
-import dayjs from "dayjs";
+import { computed, reactive,  } from "vue";
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -75,36 +73,8 @@ const props = defineProps({
     default: false,
   },
 });
-const plainOptions: RadioGroupProps["options"] = [
-  { label: "固定时间", value: "fixedTime" },
-  { label: "多久之后", value: "soonTime" },
-];
-const options = ref<SelectProps["options"]>([
-  {
-    value: "1",
-    label: "1分钟后",
-  },
-  {
-    value: "5",
-    label: "5分钟后",
-  },
-  {
-    value: "15",
-    label: "15分钟后",
-  },
-  {
-    value: "30",
-    label: "30分钟后",
-  },
-  {
-    value: "60",
-    label: "1小时后",
-  },
-  {
-    value: "120",
-    label: "2小时后",
-  },
-]);
+
+
 const emit = defineEmits(["update:visible", "saveSuccess"]);
 const open = computed({
   get() {
@@ -118,27 +88,25 @@ const title = computed(() => {
   return props.isEdit ? "编辑需求记录" : "新建需求记录";
 });
 interface FormState {
-  sendTime: string | null;
+  id: string;
   remark: string;
-  title: string;
-  key?: number;
-  radio: string;
+  relatedProduct: string;
+  jiraUrl: string;
+  designUrl: string;
+  apiDocUrl: string;
 }
 
 const formState = reactive<FormState>({
-  sendTime: null,
+  id: '',
   remark: "",
-  title: "",
-  radio: "soonTime",
+  relatedProduct: "",
+  jiraUrl: "",
+  designUrl:'',
+  apiDocUrl:''
 });
 const onFinish = (values: FormState) => {
   open.value = false;
   message.success("保存成功");
-  if (formState.radio === "soonTime") {
-    values.sendTime = dayjs()
-      .add(Number(values.sendTime), "minute")
-      .format("HH:mm:ss");
-  }
 
   emit("saveSuccess", values);
 };

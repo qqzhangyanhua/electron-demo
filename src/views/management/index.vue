@@ -4,54 +4,86 @@
     <a-button type="primary" class="mt-4 mb-4" @click="handelAdd"
       >新建需求记录</a-button
     >
-    <AddManage v-model:visible="openModal" />
-    <a-table :dataSource="dataSource" :columns="columns" />
+    <AddManage v-model:visible="openModal" @saveSuccess="saveSuccess" />
+    <a-table :dataSource="dataSource" :columns="columns" >
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.dataIndex === 'action'">
+          <a-space>
+            <a-button type="text" class="text-[#4cc086]">编辑</a-button>
+            <a-popconfirm
+              title="是否删除该提醒？"
+              ok-text="是"
+              cancel-text="否"
+              @confirm="confirm(record)"
+              @cancel="cancel"
+            >
+              <a-button type="text" danger >删除</a-button>
+            </a-popconfirm>
+          </a-space>
+        </template>
+      </template>
+    </a-table>
   </div>
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import AddManage from "./components/add-manage.vue";
-const dataSource = reactive([
-  {
-    key: "1",
-    name: "胡彦斌",
-    age: 32,
-    address: "西湖区湖底公园1号",
-  },
-  {
-    key: "2",
-    name: "胡彦祖",
-    age: 42,
-    address: "西湖区湖底公园1号",
-  },
-]);
+const dataSource:any = reactive([]);
 const columns = reactive([
   {
     title: "禅道编号",
-    dataIndex: "name",
+    dataIndex: "id",
   },
   {
     title: "需求描述",
-    dataIndex: "age",
+    dataIndex: "remark",
   },
   {
     title: "相关产品",
-    dataIndex: "address",
+    dataIndex: "relatedProduct",
   },
   {
     title: "jira地址",
-    dataIndex: "address",
+    dataIndex: "jiraUrl",
   },
   {
     title: "设计图地址",
-    dataIndex: "address",
+    dataIndex: "designUrl",
+  },
+  {
+    title: "文档地址",
+    dataIndex: "apiDocUrl",
+  },
+  {
+    title: "操作",
+    dataIndex: "action",
+    width: 100,
   },
 ]);
+const manageString = localStorage.getItem("manageList")||"[]";
+const manageList = JSON.parse(manageString);
+Object.assign(dataSource, manageList);
 const openModal = ref<boolean>(false);
-
+const saveSuccess = (item: any) => {
+  console.log("保存成功", item);
+  dataSource.push(item);
+  localStorage.setItem("manageList", JSON.stringify(dataSource));
+  openModal.value = false;
+};
+const confirm = (record: any) => {
+  console.log("删除", record);
+  const index = dataSource.findIndex((item: any) => item.id === record.id);
+  dataSource.splice(index, 1);
+  localStorage.setItem("manageList", JSON.stringify(dataSource));
+};
+const cancel = () => {
+  console.log("取消删除");
+};
 const handelAdd = () => {
   console.log("新建需求记录");
+  
   openModal.value = true;
 };
+
 </script>
 <style lang="scss" scoped></style>

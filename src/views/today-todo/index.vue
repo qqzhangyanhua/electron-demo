@@ -94,7 +94,7 @@ const columns = reactive([
 ]);
 onMounted(() => {
   const pendingProcess =
-    window.sessionStorage.getItem("pendingProcess") || "[]";
+    window.localStorage.getItem("pendingProcess") || "[]";
   console.log(JSON.parse(pendingProcess));
   Object.assign(dataSource, JSON.parse(pendingProcess));
   console.log("mounted");
@@ -103,7 +103,7 @@ const openModal = ref<boolean>(false);
 const isEdit = ref<boolean>(false);
 const addRemind = () => {
   openModal.value = true;
-  // window.sessionStorage.setItem('pendingProcess',JSON.stringify(dataSource))
+  // window.localStorage.setItem('pendingProcess',JSON.stringify(dataSource))
 };
 const sendMsg = () => {
   const option = {
@@ -126,7 +126,7 @@ const confirm = (val: FormState) => {
   const index = dataSource.findIndex((item) => item.key === val.key);
   dataSource.splice(index, 1);
 
-  window.sessionStorage.setItem("pendingProcess", JSON.stringify(dataSource));
+  window.localStorage.setItem("pendingProcess", JSON.stringify(dataSource));
 };
 const cancel = () => {
   console.log("取消删除");
@@ -149,7 +149,7 @@ const saveSuccess = (item: FormState) => {
   });
   console.log(item);
 
-  window.sessionStorage.setItem("pendingProcess", JSON.stringify(dataSource));
+  window.localStorage.setItem("pendingProcess", JSON.stringify(dataSource));
 };
 </script>
 <style lang="scss" scoped></style>

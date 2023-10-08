@@ -18,7 +18,9 @@ import {
   AppstoreOutlined,
   SettingOutlined,
   LoginOutlined,
-  FileAddOutlined
+  FileAddOutlined,
+PlusOutlined,
+HeatMapOutlined
 } from "@ant-design/icons-vue";
 import type { MenuProps, ItemType } from "ant-design-vue";
 import { useRouter } from "vue-router";
@@ -65,10 +67,17 @@ const items: ItemType[] = reactive([
   },
   {
     key: "6",
-    icon: () => h(SettingOutlined),
+    icon: () => h(HeatMapOutlined),
     label: "本地项目",
     title: "Option 3",
     route: "ScriptExe",
+  },
+  {
+    key: "7",
+    icon: () => h(PlusOutlined),
+    label: "新建项目",
+    title: "Option 3",
+    route: "AddProject",
   },
 ]);
 

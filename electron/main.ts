@@ -1,8 +1,16 @@
-import { app, BrowserWindow, Notification, ipcMain, dialog } from "electron";
+import {
+  app,
+  BrowserWindow,
+  Notification,
+  ipcMain,
+  dialog,
+  shell,
+} from "electron";
 import path from "path";
-import { readdirSync, statSync ,writeFile} from "fs";
+import { readdirSync, statSync, writeFile } from "fs";
 const { exec } = require("child_process");
 const schedule = require("node-schedule");
+let mainWindow
 const createdWindow = () => {
   const win = new BrowserWindow({
     width: 900,
@@ -17,7 +25,7 @@ const createdWindow = () => {
     },
     autoHideMenuBar: true, // 隐藏菜单栏
   });
-
+  mainWindow =win
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
@@ -25,11 +33,13 @@ const createdWindow = () => {
   }
 };
 
+
 app.whenReady().then(() => {
   createdWindow();
 });
 // 兼容MacOS系统的窗口关闭功能
 app.on("window-all-closed", () => {
+  mainWindow = null
   // 非MacOS直接退出
   if (process.platform != "darwin") {
     app.quit();
@@ -38,9 +48,13 @@ app.on("window-all-closed", () => {
 
 // 点击MacOS底部菜单时重新启动窗口
 app.on("activate", () => {
-  if (BrowserWindow.getAllWindows.length == 0) {
+  console.log('BrowserWindow.getAllWindows',mainWindow);
+  if (mainWindow === null) {
     createdWindow();
   }
+  // if (BrowserWindow.getAllWindows.length == 0) {
+  //   createdWindow();
+  // }
 });
 
 /** 打开文件夹的 */
@@ -68,12 +82,12 @@ ipcMain.on("open-folder", (event, folderPath) => {
       }
     }
     console.log("directoryList", directoryList);
-    writeFile('data.json', JSON.stringify(directoryList), (err) => {
+    writeFile("data.json", JSON.stringify(directoryList), (err) => {
       if (err) {
         console.error(err);
         return;
       }
-      console.log('Data written to file');
+      console.log("Data written to file");
     });
     event.sender.send("directoryList", directoryList);
   });
@@ -83,24 +97,30 @@ ipcMain.on("open-folder", (event, folderPath) => {
 //可以执行命令
 ipcMain.on("scriptExe", (event, item) => {
   console.log("scriptExe==================", item);
-  if(item.type==='vscode'){
-    exec(`cd ${item.filePath} && code .`, (error, stdout, stderr) => {
+  if (item.type === "vscode") {
+    const code = "/usr/local/bin/code";
+
+    exec(` ${code} ${item.filePath}`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
       }
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
     });
   }
-  if(item.type==='iterm'){
+  if (item.type === "finder") {
+    exec(`open ${item.filePath}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+    });
+  }
+  if (item.type === "iterm") {
     exec(`cd ${item.filePath} && open -a iTerm .`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return;
       }
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
     });
   }
   // exec("code .", (err, stdout, stderr) => {
@@ -147,6 +167,48 @@ ipcMain.on("reminderEvent2", (event, item) => {
 ipcMain.on("reminderEvent1", (event, item) => {
   setIpcJob(item);
 });
+
+/** 获取文件夹路径 */
+ipcMain.on("open-file-dialog", (event, item) => {
+  console.log("open-file-dialog==================", item);
+  dialog
+    .showOpenDialog({
+      properties: ["openFile", "openDirectory"],
+    })
+    .then((res) => {
+      console.log("res", res);
+      event.reply("selected-directory", res);
+      event.sender.send("directoryList", res.filePaths[0]);
+    });
+});
+
+/**git clone */
+ipcMain.on("git-clone", (event, item) => {
+  console.log('git-clone==================',item);
+  const localTemplateDir = `${item.filePath}/${item.projectName}`;
+  const templateRepoUrl = item.template;
+  const command = `git clone ${templateRepoUrl} ${localTemplateDir}`;
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.sender.send("clone-success",item);
+    
+    console.error(`clone-success: ${stderr}`);
+    const removeOriginCommand = `cd ${localTemplateDir} && git remote remove origin`;
+    exec(removeOriginCommand, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.error(`远程地址已经删除===`);
+    });
+  });
+});
+
+
 
 const ipcObj = {
   reminderEvent: null,
