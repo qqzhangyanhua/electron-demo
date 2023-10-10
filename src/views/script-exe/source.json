@@ -1,93 +1,96 @@
 [
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/01 2022年11月",
-      "fileName": "01 2022年11月"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/04 可视化拖拽编辑器",
-      "fileName": "04 可视化拖拽编辑器"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/ChatGPT-Next-Web",
-      "fileName": "ChatGPT-Next-Web"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/PrivateSpaceStation13",
-      "fileName": "PrivateSpaceStation13"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/baiducode",
-      "fileName": "baiducode"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/code-demo",
-      "fileName": "code-demo"
-    },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/core", "fileName": "core" },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/element-plus",
-      "fileName": "element-plus"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/main-process",
-      "fileName": "main-process"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/mini-webpack",
-      "fileName": "mini-webpack"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/my-test",
-      "fileName": "my-test"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/project-name",
-      "fileName": "project-name"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/pythons",
-      "fileName": "pythons"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/react-exam",
-      "fileName": "react-exam"
-    },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/tsup", "fileName": "tsup" },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/usetsup",
-      "fileName": "usetsup"
-    },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/vant", "fileName": "vant" },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/vite", "fileName": "vite" },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/vsode-plugin",
-      "fileName": "vsode-plugin"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/vue-loader",
-      "fileName": "vue-loader"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/vue-use-tinymce",
-      "fileName": "vue-use-tinymce"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/vue3-ant-form-generator",
-      "fileName": "vue3-ant-form-generator"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/yq_mapkaifa",
-      "fileName": "yq_mapkaifa"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/zhufeng_project_2",
-      "fileName": "zhufeng_project_2"
-    },
-    {
-      "filePath": "/Users/zhangyanhua/Desktop/test/手写实现webpack(架构)",
-      "fileName": "手写实现webpack(架构)"
-    },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/课件", "fileName": "课件" },
-    { "filePath": "/Users/zhangyanhua/Desktop/test/调试", "fileName": "调试" }
-  ]
-  
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/01 2022年11月",
+    "fileName": "01 2022年11月"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/04 可视化拖拽编辑器",
+    "fileName": "04 可视化拖拽编辑器"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/ChatGPT-Next-Web",
+    "fileName": "ChatGPT-Next-Web"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/PrivateSpaceStation13",
+    "fileName": "PrivateSpaceStation13"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/baiducode",
+    "fileName": "baiducode"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/code-demo",
+    "fileName": "code-demo"
+  },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/core", "fileName": "core","type":"debug" ,"remark":"vue源码"},
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/element-plus",
+    "fileName": "element-plus",
+    "type":"debug",
+    "remark":"element-plus源码"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/main-process",
+    "fileName": "main-process"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/mini-webpack",
+    "fileName": "mini-webpack"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/my-test",
+    "fileName": "my-test"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/project-name",
+    "fileName": "project-name"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/pythons",
+    "fileName": "pythons"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/react-exam",
+    "fileName": "react-exam"
+  },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/tsup", "fileName": "tsup","type":"debug","remark":"tsup源码" },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/usetsup",
+    "fileName": "usetsup",
+    "type":"debug",
+    "remark":"调试tsup源码"
+  },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/vant", "fileName": "vant" },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/vite", "fileName": "vite" },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/vsode-plugin",
+    "fileName": "vsode-plugin"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/vue-loader",
+    "fileName": "vue-loader"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/vue-use-tinymce",
+    "fileName": "vue-use-tinymce"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/vue3-ant-form-generator",
+    "fileName": "vue3-ant-form-generator"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/yq_mapkaifa",
+    "fileName": "yq_mapkaifa"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/zhufeng_project_2",
+    "fileName": "zhufeng_project_2"
+  },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/test/手写实现webpack(架构)",
+    "fileName": "手写实现webpack(架构)"
+  },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/课件", "fileName": "课件" },
+  { "filePath": "/Users/zhangyanhua/Desktop/test/调试", "fileName": "调试" }
+]

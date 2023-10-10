@@ -9,6 +9,8 @@
         <a-radio-button value="a">工作文件夹</a-radio-button>
         <a-radio-button value="c">授权待办</a-radio-button>
         <a-radio-button value="b">练习文件夹</a-radio-button>
+        <a-radio-button value="e">调试</a-radio-button>
+
       </a-radio-group>
     </div>
     <a-table
@@ -84,6 +86,8 @@ const dataSource = computed(()=>{
     return testSourceJson
   }else if(radioValue.value==='c'){
     return sourceJson.filter((item:any)=>item.type==='auth')
+  }else if(radioValue.value==='e'){
+    return testSourceJson.filter((item:any)=>item.type==='debug')
   }
 
 })
