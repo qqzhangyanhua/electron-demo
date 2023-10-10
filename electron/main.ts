@@ -59,9 +59,6 @@ app.on("activate", () => {
 
 /** 打开文件夹的 */
 ipcMain.on("open-folder", (event, folderPath) => {
-  // console.log('folderPath',dialog);
-  // const files = readdirSync(folderPath);
-  // console.log('files', files);
   dialog.showOpenDialog({ properties: ["openDirectory"] }).then((res) => {
     // 如果取消了就直接return
     if (res.canceled) {
