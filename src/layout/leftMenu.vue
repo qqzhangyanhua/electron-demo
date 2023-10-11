@@ -20,7 +20,8 @@ import {
   LoginOutlined,
   FileAddOutlined,
 PlusOutlined,
-HeatMapOutlined
+HeatMapOutlined,
+FunnelPlotOutlined
 } from "@ant-design/icons-vue";
 import type { MenuProps, ItemType } from "ant-design-vue";
 import { useRouter } from "vue-router";
@@ -78,6 +79,13 @@ const items: ItemType[] = reactive([
     label: "新建项目",
     title: "Option 3",
     route: "AddProject",
+  },
+  {
+    key: "8",
+    icon: () => h(FunnelPlotOutlined),
+    label: "模板管理",
+    title: "Option 3",
+    route: "TemplateManagement",
   },
 ]);
 

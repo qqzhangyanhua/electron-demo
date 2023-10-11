@@ -11,6 +11,8 @@ const routes = [
     { path: '/personal-center', component: ()=>import('./views/personal-center/index.vue') ,name:'PersonalCenter'},
     { path: '/script-exe', component: ()=>import('./views/script-exe/index.vue') ,name:'ScriptExe'},
     { path: '/add-project', component: ()=>import('./views/add-project/index.vue') ,name:'AddProject'},
+    { path: '/template-management', component: ()=>import('./views/template-management/index.vue') ,name:'TemplateManagement'},
+    { path: '/template-code', component: ()=>import('./views/template-management/template-code.vue') ,name:'TemplateCode'},
 
 
   ]
