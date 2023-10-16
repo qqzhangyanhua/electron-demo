@@ -21,7 +21,8 @@ import {
   FileAddOutlined,
 PlusOutlined,
 HeatMapOutlined,
-FunnelPlotOutlined
+FunnelPlotOutlined,
+DragOutlined
 } from "@ant-design/icons-vue";
 import type { MenuProps, ItemType } from "ant-design-vue";
 import { useRouter } from "vue-router";
@@ -87,6 +88,14 @@ const items: ItemType[] = reactive([
     title: "Option 3",
     route: "TemplateManagement",
   },
+  {
+    key: "9",
+    icon: () => h(DragOutlined ),
+    label: "ChatGPT",
+    title: "Option 3",
+    route: "chatGpt",
+  },
+
 ]);
 
 const handleClick: MenuProps["onClick"] = (e) => {

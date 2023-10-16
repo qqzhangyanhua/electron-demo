@@ -3,14 +3,16 @@ import {
   BrowserWindow,
   Notification,
   ipcMain,
+  screen,
   dialog,
-  shell,
+  BrowserView,
 } from "electron";
 import path from "path";
 import { readdirSync, statSync, writeFile } from "fs";
 const { exec } = require("child_process");
 const schedule = require("node-schedule");
-let mainWindow
+let mainWindow;
+let newWin;
 const createdWindow = () => {
   const win = new BrowserWindow({
     width: 900,
@@ -25,7 +27,7 @@ const createdWindow = () => {
     },
     autoHideMenuBar: true, // 隐藏菜单栏
   });
-  mainWindow =win
+  mainWindow = win;
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
@@ -33,13 +35,39 @@ const createdWindow = () => {
   }
 };
 
+const createdNewWindow = () => {
+  // 获取屏幕的大小和位置
+const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+  const win = new BrowserWindow({
+    width: 350,
+    height: 350,
+    icon: path.resolve(__dirname, "../favicon.ico"),
+    frame: false,
+    alwaysOnTop: true,
+    transparent: true,
+    show: false,
+  });
+  newWin = win;
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL("https://www.zyh.show/?code=1");
+  } else {
+    win.loadFile(path.resolve(__dirname, "../dist/index.html"));
+  }
+ // 将窗口定位在屏幕的右下角
+ console.log('width', width);
+  console.log('height', height);
+ 
+ newWin.setPosition(width - 360, height - 320);
+};
 
 app.whenReady().then(() => {
   createdWindow();
+  createdNewWindow();
 });
 // 兼容MacOS系统的窗口关闭功能
 app.on("window-all-closed", () => {
-  mainWindow = null
+  mainWindow = null;
   // 非MacOS直接退出
   if (process.platform != "darwin") {
     app.quit();
@@ -48,13 +76,29 @@ app.on("window-all-closed", () => {
 
 // 点击MacOS底部菜单时重新启动窗口
 app.on("activate", () => {
-  console.log('BrowserWindow.getAllWindows',mainWindow);
+  console.log("BrowserWindow.getAllWindows", mainWindow);
   if (mainWindow === null) {
     createdWindow();
   }
   // if (BrowserWindow.getAllWindows.length == 0) {
   //   createdWindow();
   // }
+});
+
+/** 创建新的窗口 */
+ipcMain.on("make-window", (event) => {
+  console.log("创建窗口=======",newWin.isVisible());
+  // 如果视图已经存在，则显示它
+
+
+  
+  if(newWin && !newWin.isVisible()){
+    newWin.show();
+    return;
+  }else{
+    newWin.hide();
+  }
+
 });
 
 /** 打开文件夹的 */
@@ -181,7 +225,7 @@ ipcMain.on("open-file-dialog", (event, item) => {
 
 /**git clone */
 ipcMain.on("git-clone", (event, item) => {
-  console.log('git-clone==================',item);
+  console.log("git-clone==================", item);
   const localTemplateDir = `${item.filePath}/${item.projectName}`;
   const templateRepoUrl = item.template;
   const command = `git clone ${templateRepoUrl} ${localTemplateDir}`;
@@ -191,8 +235,8 @@ ipcMain.on("git-clone", (event, item) => {
       return;
     }
     console.log(`stdout: ${stdout}`);
-    event.sender.send("clone-success",item);
-    
+    event.sender.send("clone-success", item);
+
     console.error(`clone-success: ${stderr}`);
     const removeOriginCommand = `cd ${localTemplateDir} && git remote remove origin`;
     exec(removeOriginCommand, (error, stdout, stderr) => {
@@ -204,8 +248,6 @@ ipcMain.on("git-clone", (event, item) => {
     });
   });
 });
-
-
 
 const ipcObj = {
   reminderEvent: null,

@@ -5,6 +5,7 @@ const fs = require("fs");
 const { exec } = require("child_process");
 const schedule = require("node-schedule");
 let mainWindow;
+let newWin;
 const createdWindow = () => {
   const win = new electron.BrowserWindow({
     width: 900,
@@ -29,8 +30,30 @@ const createdWindow = () => {
     win.loadFile(path.resolve(__dirname, "../dist/index.html"));
   }
 };
+const createdNewWindow = () => {
+  const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
+  const win = new electron.BrowserWindow({
+    width: 350,
+    height: 350,
+    icon: path.resolve(__dirname, "../favicon.ico"),
+    frame: false,
+    alwaysOnTop: true,
+    transparent: true,
+    show: false
+  });
+  newWin = win;
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL("https://www.zyh.show/?code=1");
+  } else {
+    win.loadFile(path.resolve(__dirname, "../dist/index.html"));
+  }
+  console.log("width", width);
+  console.log("height", height);
+  newWin.setPosition(width - 360, height - 320);
+};
 electron.app.whenReady().then(() => {
   createdWindow();
+  createdNewWindow();
 });
 electron.app.on("window-all-closed", () => {
   mainWindow = null;
@@ -42,6 +65,15 @@ electron.app.on("activate", () => {
   console.log("BrowserWindow.getAllWindows", mainWindow);
   if (mainWindow === null) {
     createdWindow();
+  }
+});
+electron.ipcMain.on("make-window", (event) => {
+  console.log("创建窗口=======", newWin.isVisible());
+  if (newWin && !newWin.isVisible()) {
+    newWin.show();
+    return;
+  } else {
+    newWin.hide();
   }
 });
 electron.ipcMain.on("open-folder", (event, folderPath) => {

@@ -13,6 +13,7 @@ const routes = [
     { path: '/add-project', component: ()=>import('./views/add-project/index.vue') ,name:'AddProject'},
     { path: '/template-management', component: ()=>import('./views/template-management/index.vue') ,name:'TemplateManagement'},
     { path: '/template-code', component: ()=>import('./views/template-management/template-code.vue') ,name:'TemplateCode'},
+    { path: '/chat-gpt', component: ()=>import('./views/chat-gpt/index.vue') ,name:'chatGpt'},
 
 
   ]
