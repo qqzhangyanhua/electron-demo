@@ -49,11 +49,7 @@ const { width, height } = screen.getPrimaryDisplay().workAreaSize;
     show: false,
   });
   newWin = win;
-  if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL("https://www.zyh.show/?code=1");
-  } else {
-    win.loadFile(path.resolve(__dirname, "../dist/index.html"));
-  }
+  win.loadURL("https://www.zyh.show/?code=1");
  // 将窗口定位在屏幕的右下角
  console.log('width', width);
   console.log('height', height);

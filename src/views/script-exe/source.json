@@ -61,6 +61,12 @@
     "type":"debug",
     "remark":"调试tsup源码"
   },
+  {
+    "filePath": "/Users/zhangyanhua/Desktop/workcode/project_app_h5_area",
+    "fileName": "项目代码",
+    "type":"debug",
+    "remark":"项目代码调试"
+  },
   { "filePath": "/Users/zhangyanhua/Desktop/test/vant", "fileName": "vant" },
   { "filePath": "/Users/zhangyanhua/Desktop/test/vite", "fileName": "vite" },
   {
