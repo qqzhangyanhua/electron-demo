@@ -12,6 +12,12 @@
     "fileName": "my-code"
   },
   {
+    "filePath": "/Users/zhangyanhua/Desktop/workcode/product_front_onething_platform",
+    "fileName": "product_front_onething_platform",
+    "type":"auth",
+    "remark":"新一件事"
+  },
+  {
     "filePath": "/Users/zhangyanhua/Desktop/workcode/product_app_authorize_manage",
     "fileName": "product_app_authorize_manage",
     "type":"auth",

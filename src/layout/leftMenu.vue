@@ -40,6 +40,13 @@ const items: ItemType[] = reactive([
     route: "Home",
   },
   {
+    key: "11",
+    icon: () => h(MailOutlined),
+    label: "我的工具",
+    title: "Option 1",
+    route: "Tool",
+  },
+  {
     key: "2",
     icon: () => h(AppstoreOutlined),
     label: "项目管理",

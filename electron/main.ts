@@ -59,7 +59,7 @@ const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
 app.whenReady().then(() => {
   createdWindow();
-  createdNewWindow();
+  // createdNewWindow(); //注销
 });
 // 兼容MacOS系统的窗口关闭功能
 app.on("window-all-closed", () => {

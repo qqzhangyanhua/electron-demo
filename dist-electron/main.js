@@ -1,1 +1,194 @@
-"use strict";const t=require("electron"),w=require("path"),u=require("fs"),{exec:a}=require("child_process"),m=require("node-schedule");let h,l;const E=()=>{const o=new t.BrowserWindow({width:900,height:600,minHeight:600,minWidth:900,icon:w.resolve(__dirname,"../favicon.ico"),webPreferences:{nodeIntegration:!0,contextIsolation:!1,webSecurity:!1},autoHideMenuBar:!0});h=o,process.env.VITE_DEV_SERVER_URL?o.loadURL(process.env.VITE_DEV_SERVER_URL):o.loadFile(w.resolve(__dirname,"../dist/index.html"))},$=()=>{const{width:o,height:e}=t.screen.getPrimaryDisplay().workAreaSize,n=new t.BrowserWindow({width:350,height:350,icon:w.resolve(__dirname,"../favicon.ico"),frame:!1,alwaysOnTop:!0,transparent:!0,show:!1});l=n,n.loadURL("https://www.zyh.show/?code=1"),console.log("width",o),console.log("height",e),l.setPosition(o-360,e-320)};t.app.whenReady().then(()=>{E(),$()});t.app.on("window-all-closed",()=>{h=null,process.platform!="darwin"&&t.app.quit()});t.app.on("activate",()=>{console.log("BrowserWindow.getAllWindows",h),h===null&&E()});t.ipcMain.on("make-window",o=>{if(console.log("创建窗口=======",l.isVisible()),l&&!l.isVisible()){l.show();return}else l.hide()});t.ipcMain.on("open-folder",(o,e)=>{t.dialog.showOpenDialog({properties:["openDirectory"]}).then(n=>{if(n.canceled)return;const r=u.readdirSync(n.filePaths[0]),s=n.filePaths[0];console.log("路径前缀===",s);const i=[];for(const c of r){const d=w.join(s,c);u.statSync(d).isDirectory()&&i.push({filePath:d,fileName:c})}console.log("directoryList",i),u.writeFile("data.json",JSON.stringify(i),c=>{if(c){console.error(c);return}console.log("Data written to file")}),o.sender.send("directoryList",i)})});t.ipcMain.on("scriptExe",(o,e)=>{console.log("scriptExe==================",e),e.type==="vscode"&&a(` /usr/local/bin/code ${e.filePath}`,(r,s,i)=>{if(r){console.error(`exec error: ${r}`);return}}),e.type==="finder"&&a(`open ${e.filePath}`,(n,r,s)=>{if(n){console.error(`exec error: ${n}`);return}}),e.type==="iterm"&&a(`cd ${e.filePath} && open -a iTerm .`,(n,r,s)=>{if(n){console.error(`exec error: ${n}`);return}})});let f;t.ipcMain.on("setAlarm",(o,e)=>{console.log("setAlarm==================",e),console.log("job===",f),f&&f.cancel(),f=m.scheduleJob(new Date(e.time),function(){o.sender.send("alarmTriggered");var n=new t.Notification({title:e.title,body:e.body});n.show()})});t.ipcMain.on("reminderEvent",(o,e)=>{g(e)});t.ipcMain.on("reminderEvent2",(o,e)=>{g(e)});t.ipcMain.on("reminderEvent1",(o,e)=>{g(e)});t.ipcMain.on("open-file-dialog",(o,e)=>{console.log("open-file-dialog==================",e),t.dialog.showOpenDialog({properties:["openFile","openDirectory"]}).then(n=>{console.log("res",n),o.reply("selected-directory",n),o.sender.send("directoryList",n.filePaths[0])})});t.ipcMain.on("git-clone",(o,e)=>{console.log("git-clone==================",e);const n=`${e.filePath}/${e.projectName}`,s=`git clone ${e.template} ${n}`;a(s,(i,c,d)=>{if(i){console.error(`exec error: ${i}`);return}console.log(`stdout: ${c}`),o.sender.send("clone-success",e),console.error(`clone-success: ${d}`);const y=`cd ${n} && git remote remove origin`;a(y,(v,b,P)=>{if(v){console.error(`exec error: ${v}`);return}console.error("远程地址已经删除===")})})});const p={reminderEvent:null,reminderEvent1:null,reminderEvent2:null};function g(o){if(console.log("setAlarm==================",o),o.action==="cancel"){p[o.eventKey].cancel();return}p[o.eventKey]&&p[o.eventKey].cancel(),p[o.eventKey]=m.scheduleJob(new Date(o.time),function(){var e=new t.Notification({title:o.title,body:o.body});e.show()})}
+"use strict";
+const electron = require("electron");
+const path = require("path");
+const fs = require("fs");
+const { exec } = require("child_process");
+const schedule = require("node-schedule");
+let mainWindow;
+let newWin;
+const createdWindow = () => {
+  const win = new electron.BrowserWindow({
+    width: 900,
+    height: 600,
+    minHeight: 600,
+    // 设置最小高度
+    minWidth: 900,
+    // 设置最小宽度
+    icon: path.resolve(__dirname, "../favicon.ico"),
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      webSecurity: false
+    },
+    autoHideMenuBar: true
+    // 隐藏菜单栏
+  });
+  mainWindow = win;
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(path.resolve(__dirname, "../dist/index.html"));
+  }
+};
+electron.app.whenReady().then(() => {
+  createdWindow();
+});
+electron.app.on("window-all-closed", () => {
+  mainWindow = null;
+  if (process.platform != "darwin") {
+    electron.app.quit();
+  }
+});
+electron.app.on("activate", () => {
+  console.log("BrowserWindow.getAllWindows", mainWindow);
+  if (mainWindow === null) {
+    createdWindow();
+  }
+});
+electron.ipcMain.on("make-window", (event) => {
+  console.log("创建窗口=======", newWin.isVisible());
+  {
+    newWin.hide();
+  }
+});
+electron.ipcMain.on("open-folder", (event, folderPath) => {
+  electron.dialog.showOpenDialog({ properties: ["openDirectory"] }).then((res) => {
+    if (res.canceled) {
+      return;
+    }
+    const files = fs.readdirSync(res.filePaths[0]);
+    const filePaths = res.filePaths[0];
+    console.log("路径前缀===", filePaths);
+    const directoryList = [];
+    for (const file of files) {
+      const filePath = path.join(filePaths, file);
+      const stats = fs.statSync(filePath);
+      if (stats.isDirectory()) {
+        directoryList.push({
+          filePath,
+          fileName: file
+        });
+      }
+    }
+    console.log("directoryList", directoryList);
+    fs.writeFile("data.json", JSON.stringify(directoryList), (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Data written to file");
+    });
+    event.sender.send("directoryList", directoryList);
+  });
+});
+electron.ipcMain.on("scriptExe", (event, item) => {
+  console.log("scriptExe==================", item);
+  if (item.type === "vscode") {
+    const code = "/usr/local/bin/code";
+    exec(` ${code} ${item.filePath}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+    });
+  }
+  if (item.type === "finder") {
+    exec(`open ${item.filePath}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+    });
+  }
+  if (item.type === "iterm") {
+    exec(`cd ${item.filePath} && open -a iTerm .`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+    });
+  }
+});
+let job;
+electron.ipcMain.on("setAlarm", (event, item) => {
+  console.log("setAlarm==================", item);
+  console.log("job===", job);
+  if (job) {
+    job.cancel();
+  }
+  job = schedule.scheduleJob(new Date(item.time), function() {
+    event.sender.send("alarmTriggered");
+    var myNotification = new electron.Notification({
+      title: item.title,
+      body: item.body
+    });
+    myNotification.show();
+  });
+});
+electron.ipcMain.on("reminderEvent", (event, item) => {
+  setIpcJob(item);
+});
+electron.ipcMain.on("reminderEvent2", (event, item) => {
+  setIpcJob(item);
+});
+electron.ipcMain.on("reminderEvent1", (event, item) => {
+  setIpcJob(item);
+});
+electron.ipcMain.on("open-file-dialog", (event, item) => {
+  console.log("open-file-dialog==================", item);
+  electron.dialog.showOpenDialog({
+    properties: ["openFile", "openDirectory"]
+  }).then((res) => {
+    console.log("res", res);
+    event.reply("selected-directory", res);
+    event.sender.send("directoryList", res.filePaths[0]);
+  });
+});
+electron.ipcMain.on("git-clone", (event, item) => {
+  console.log("git-clone==================", item);
+  const localTemplateDir = `${item.filePath}/${item.projectName}`;
+  const templateRepoUrl = item.template;
+  const command = `git clone ${templateRepoUrl} ${localTemplateDir}`;
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    event.sender.send("clone-success", item);
+    console.error(`clone-success: ${stderr}`);
+    const removeOriginCommand = `cd ${localTemplateDir} && git remote remove origin`;
+    exec(removeOriginCommand, (error2, stdout2, stderr2) => {
+      if (error2) {
+        console.error(`exec error: ${error2}`);
+        return;
+      }
+      console.error(`远程地址已经删除===`);
+    });
+  });
+});
+const ipcObj = {
+  reminderEvent: null,
+  reminderEvent1: null,
+  reminderEvent2: null
+};
+function setIpcJob(item) {
+  console.log("setAlarm==================", item);
+  if (item.action === "cancel") {
+    ipcObj[item.eventKey].cancel();
+    return;
+  }
+  if (ipcObj[item.eventKey]) {
+    ipcObj[item.eventKey].cancel();
+  }
+  ipcObj[item.eventKey] = schedule.scheduleJob(
+    new Date(item.time),
+    function() {
+      var myNotification = new electron.Notification({
+        title: item.title,
+        body: item.body
+      });
+      myNotification.show();
+    }
+  );
+}
