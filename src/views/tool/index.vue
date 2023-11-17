@@ -30,6 +30,11 @@
       title:'时间转换',
       route:'ToolTime',
       desc:'时间戳转换，时间格式转换'
+    },
+    {
+      title:'占位图片',
+      route:'ToolImgs',
+      desc:'用于占位图片显示'
     }
 
   ];

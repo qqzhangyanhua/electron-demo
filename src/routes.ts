@@ -18,6 +18,7 @@ const routes = [
     { path: '/tool/idCard', component: ()=>import('./views/tool/components/idCard.vue') ,name:'ToolIdCard'},
     { path: '/tool/backCard', component: ()=>import('./views/tool/components/backCard.vue') ,name:'ToolBackCard'},
     { path: '/tool/time', component: ()=>import('./views/tool/components/time.vue') ,name:'ToolTime'},
+    { path: '/tool/imgs', component: ()=>import('./views/tool/components/imgs.vue') ,name:'ToolImgs'},
 
 
 
