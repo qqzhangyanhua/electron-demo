@@ -35,14 +35,14 @@
       <a-col span="12">
         <p class="mt-2 text-gray-500">
             <a-input-group compact>
-            <a-input v-model:value="formatTime" style="width: calc(100% - 200px)" />
-            <a-button type="primary" @click="handelInput">转换</a-button>
+            <a-input v-model:value="timeDate" style="width: calc(100% - 200px)" />
+            <a-button type="primary" @click="handelInputTimestamp">转换</a-button>
             </a-input-group>
         </p>
       </a-col>
       <p class="mt-2 text-gray-500">
-        时间转化:{{ formatTime }}
-        <a-button @click="handelCopy(formatTime)" type="link"
+        时间转化:{{ timeStamp }}
+        <a-button @click="handelCopy(timeStamp)" type="link"
           >复制当前时间戳</a-button
         >
       </p>
@@ -58,8 +58,10 @@ const nowDate = ref(dayjs().format("YYYY-MM-DD HH:mm:ss"));
 const { toClipboard } = useClipboard();
 import useClipboard from "vue-clipboard3";
 import { ref } from "vue";
-const inputNumber = ref(0);
+const inputNumber = ref();
 const formatTime = ref("")
+const timeStamp = ref()
+const timeDate =ref('')
 //时间戳毫秒
 const timeNumber = ref(dayjs().valueOf());
 const handelCopy = async (value: string | number) => {
@@ -80,4 +82,11 @@ const handelInput = () => {
     message.error("请输入时间戳");
   }
 };
+const handelInputTimestamp =()=>{
+  if(timeDate.value){
+    timeStamp.value = dayjs(timeDate.value).valueOf()
+  }else{
+    message.error('请输入需要转换的时间日期')
+  }
+}
 </script>
