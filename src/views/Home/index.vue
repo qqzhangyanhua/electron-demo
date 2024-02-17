@@ -19,7 +19,7 @@ import gitLab from '@/assets/gitlab.webp';
 import email from '@/assets/email.webp';
 const state = reactive([{
     title:'jira',
-    url:'http://www.tongbaninfo.com:10029/secure/Dashboard.jspa',
+    url:'pa',
     icon:jiraImg,
     id:1
 },{
