@@ -19,22 +19,22 @@ import gitLab from '@/assets/gitlab.webp';
 import email from '@/assets/email.webp';
 const state = reactive([{
     title:'jira',
-    url:'http://www.tongbaninfo.com:10029/secure/Dashboard.jspa',
+    url:'pa',
     icon:jiraImg,
     id:1
 },{
     title:'禅道',
-    url:'http://www.tongbaninfo.com:8765/my.html',
+    url:'http',
     icon:chandao,
     id:2
 },{
     title:'gitlab',
-    url:'http://192.168.2.22:9000/',
+    url:'http',
     icon:gitLab,
     id:3
 },{
     title:'邮箱',
-    url:'http://mail.tongbaninfo.com/',
+    url:'http:',
     icon:email,
     id:4
 }
