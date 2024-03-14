@@ -35,6 +35,11 @@
       title:'占位图片',
       route:'ToolImgs',
       desc:'用于占位图片显示'
+    },
+    {
+      title:'json格式化',
+      route:'ToolJson',
+      desc:'用于处理格式化json工具'
     }
 
   ];

@@ -19,6 +19,7 @@ const routes = [
     { path: '/tool/backCard', component: ()=>import('./views/tool/components/backCard.vue') ,name:'ToolBackCard'},
     { path: '/tool/time', component: ()=>import('./views/tool/components/time.vue') ,name:'ToolTime'},
     { path: '/tool/imgs', component: ()=>import('./views/tool/components/imgs.vue') ,name:'ToolImgs'},
+    { path: '/tool/json', component: ()=>import('./views/tool/components/json.vue') ,name:'ToolJson'},
 
 
 
